@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,6 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="com.example.helloedge.EdgeWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <!-- Required for Edge Single Plus mode -->
+                <action android:name="com.samsung.android.cocktail.v2.action.COCKTAIL_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.samsung.android.cocktail.provider"
+                android:resource="@xml/edgepanel_cocktail_config" />
+        </receiver>
+
+        <!-- Only require if the app is a standalone app in the Galaxy Store. -->
+        <meta-data
+            android:name="com.samsung.android.cocktail.mode"
+            android:value="edge_single_plus" /> <!-- Required for Edge Single Plus mode -->
     </application>
 
 </manifest>
